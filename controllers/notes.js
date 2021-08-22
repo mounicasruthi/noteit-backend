@@ -12,7 +12,7 @@ exports.addNote = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(erro);
+      console.log(err);
       res.status(400).json({
         message: "Database error occured",
       });
@@ -26,7 +26,7 @@ exports.getAllNotes = (req, res) => {
       const noteData = data.rows;
       const filteredData = noteData.map((note) => {
         return {
-          noteId: note.noteid,
+          noteId: note.id,
           heading: note.heading,
           content: note.content,
         };
@@ -37,7 +37,7 @@ exports.getAllNotes = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log(erro);
+      console.log(err);
       res.status(400).json({
         message: "Database error occured",
       });
@@ -49,7 +49,7 @@ exports.updateNote = (req, res) => {
   const { heading, content } = req.body;
   client
     .query(
-      `UPDATE notes SET heading='${heading}' , content='${content}' WHERE noteid='${noteId}'`
+      `UPDATE notes SET heading='${heading}' , content='${content}' WHERE id='${noteId}'`
     )
     .then((data) => {
       res.status(200).json({
