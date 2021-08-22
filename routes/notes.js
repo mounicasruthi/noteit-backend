@@ -8,7 +8,7 @@ router.param("noteId", handleNoteIdParam);
 
 router.post("/add", verifyToken, addNote);
 router.put("/update/:noteId", verifyToken, updateNote);
-router.delete("/delete/:noteId", verifyToken, deleteNote);
+// router.delete("/delete/:noteId", verifyToken, deleteNote);
 router.get("/getallnotes", verifyToken, getAllNotes);
 
 module.exports = router;

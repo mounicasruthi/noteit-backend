@@ -93,7 +93,7 @@ exports.signIn = (req, res) => {
             });
           } else {
              res.status(400).json({
-              error: "Enter correct password!",
+              error: "Enter correct password",
             });
           }
         });
@@ -101,7 +101,7 @@ exports.signIn = (req, res) => {
     })
     .catch((err) => {
       res.status(500).json({
-        error: "Database error occurred!",
+        error: "Database error occurred",
       });
     });
 };
