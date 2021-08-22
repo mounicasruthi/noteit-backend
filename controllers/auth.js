@@ -10,7 +10,7 @@ exports.signUp = (req, res) => {
     .then((data) => {
       isValid = data.rows;
 
-        if (isValid.length !== 0) {
+        if (isValid.length != 0) {
         res.status(400).json({
           error: "User already exists.",
         });
@@ -23,14 +23,16 @@ exports.signUp = (req, res) => {
           }
 
           const user = {
+          
             name,
             email,
             password: hash,
           };
+          console.log(user);
 
           client
             .query(
-              `INSERT INTO users (name, email, password) VALUES ('${user.name}', '${user.email}' , '${user.password}');`
+              `INSERT INTO users ( name, email, password) VALUES ('${user.name}', '${user.email}' , '${user.password}');`
             )
             .then((data) => {
                 const token = jwt.sign(
@@ -106,3 +108,22 @@ exports.signIn = (req, res) => {
     });
 };
 
+exports.getuser = (req, res) => {
+  client
+    .query(`SELECT * from users where email = '${req.email}'`)
+    .then((data) => {
+      console.log(data);
+      const { name, email, id } = data.rows[0];
+      res.send({
+        name,
+        email,
+        id,
+      });
+    })
+ 
+    .catch((err) => {
+      res.status(500).json({
+        message: "Database error",
+      });
+    });
+};
